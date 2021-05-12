@@ -62,5 +62,6 @@ public class R {
     public R data(Map<String,Object> map){
         this.setData(map);
         return this;
+
     }
 }

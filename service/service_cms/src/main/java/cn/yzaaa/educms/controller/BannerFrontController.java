@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import springfox.documentation.annotations.Cacheable;
+
 
 import java.util.List;
 
@@ -29,6 +31,7 @@ public class BannerFrontController {
     private CrmBannerService bannerService;
 
     //查询所有的banner
+
     @GetMapping("getAllBanner")
     public R getAllBanner(){
         List<CrmBanner> list = bannerService.selectAllBanner();

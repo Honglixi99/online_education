@@ -3,6 +3,7 @@ package cn.yzaaa.eduservice.service.impl;
 import cn.yzaaa.eduservice.entity.EduCourse;
 import cn.yzaaa.eduservice.entity.EduCourseDescription;
 import cn.yzaaa.eduservice.entity.frontvo.CourseFrontVo;
+import cn.yzaaa.eduservice.entity.frontvo.CourseWebVo;
 import cn.yzaaa.eduservice.entity.vo.CourseInfoVo;
 import cn.yzaaa.eduservice.entity.vo.CoursePublishVo;
 import cn.yzaaa.eduservice.mapper.EduCourseMapper;
@@ -171,5 +172,10 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         //map返回
         return map;
+    }
+
+    @Override
+    public CourseWebVo getBaseCourseInfo(String courseId) {
+        return baseMapper.getBaseCourseInfo(courseId);
     }
 }

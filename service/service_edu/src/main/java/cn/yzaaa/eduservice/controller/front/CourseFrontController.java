@@ -2,7 +2,10 @@ package cn.yzaaa.eduservice.controller.front;
 
 import cn.yzaaa.eduservice.entity.EduCourse;
 import cn.yzaaa.eduservice.entity.EduTeacher;
+import cn.yzaaa.eduservice.entity.chapterVo.ChapterVo;
 import cn.yzaaa.eduservice.entity.frontvo.CourseFrontVo;
+import cn.yzaaa.eduservice.entity.frontvo.CourseWebVo;
+import cn.yzaaa.eduservice.service.EduChapterService;
 import cn.yzaaa.eduservice.service.EduCourseService;
 import cn.yzaaa.eduservice.service.EduTeacherService;
 import cn.yzaaa.vod.commonutils.R;
@@ -23,6 +26,9 @@ public class CourseFrontController {
     @Autowired
     private EduCourseService courseService;
 
+    @Autowired
+    private EduChapterService chapterService;
+
     //1 条件查询带分页查询课程
     @PostMapping("getFrontCourseList/{page}/{limit}")
     public R getFrontCourseList(@PathVariable long page, @PathVariable long limit,
@@ -31,5 +37,16 @@ public class CourseFrontController {
         Map<String,Object> map = courseService.getCourseFrontList(pageCourse,courseFrontVo);
         //返回分页所有数据
         return R.ok().data(map);
+    }
+    //2 课程详情的方法
+    @GetMapping("getFrontCourseInfo/{courseId}")
+    public R getFrontCourseInfo(@PathVariable String courseId){
+        //根据课程id，编写sql语句查询课程信息
+        CourseWebVo courseWebVo = courseService.getBaseCourseInfo(courseId);
+
+        //根据课程id查询章节和小节
+        List<ChapterVo> chapterVoList = chapterService.getChapterVideoByCourseId(courseId);
+
+        return R.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVoList);
     }
 }

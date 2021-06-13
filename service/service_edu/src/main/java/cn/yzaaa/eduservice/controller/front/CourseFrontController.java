@@ -9,8 +9,10 @@ import cn.yzaaa.eduservice.service.EduChapterService;
 import cn.yzaaa.eduservice.service.EduCourseService;
 import cn.yzaaa.eduservice.service.EduTeacherService;
 import cn.yzaaa.vod.commonutils.R;
+import cn.yzaaa.vod.commonutils.ordervo.CourseWebVoOrder;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,5 +50,14 @@ public class CourseFrontController {
         List<ChapterVo> chapterVoList = chapterService.getChapterVideoByCourseId(courseId);
 
         return R.ok().data("courseWebVo",courseWebVo).data("chapterVideoList",chapterVoList);
+    }
+
+    //根据课程id查询课程信息
+    @PostMapping("getCourseInfoOrder/{id}")
+    public CourseWebVoOrder getCourseInfoOrder(@PathVariable String id){
+        CourseWebVo courseInfo = courseService.getBaseCourseInfo(id);
+        CourseWebVoOrder courseWebVoOrder = new CourseWebVoOrder();
+        BeanUtils.copyProperties(courseInfo,courseWebVoOrder);
+        return courseWebVoOrder;
     }
 }

@@ -1,0 +1,19 @@
+package cn.yzaaa.eduservice.client;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+
+/**
+ * @author Honglixi
+ * @create 2021-07-19 20:37
+ */
+@Component
+@FeignClient("service-edu")
+public interface OrdersClient {
+
+    @GetMapping("/eduorder/order/isBuyCourse/{courseId}/{memberId}")
+    public boolean isBuyCourse(@PathVariable("courseId") String courseId, @PathVariable("memberId") String memberId);
+
+}
